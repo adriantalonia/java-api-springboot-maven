@@ -1,4 +1,4 @@
-# Java API with Springboot and Maven
+# Rest API with Springboot and Maven
 
 ## Author
 
@@ -6,8 +6,8 @@
 
 ## Technology Stack
 
-- Java 11
-- Springboot 2.7.2
+- Java 17
+- Springboot 3.0.2
 
 ## Development Prerequisites
 
