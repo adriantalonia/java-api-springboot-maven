@@ -2,7 +2,8 @@ package com.jasm.javaapispringbootmaven.service.impl;
 
 import com.jasm.javaapispringbootmaven.exception.ResourceNotFoundException;
 import com.jasm.javaapispringbootmaven.mapper.UserMapper;
-import com.jasm.javaapispringbootmaven.model.dto.request.UserRequest;
+import com.jasm.javaapispringbootmaven.model.dto.request.UserCreateRequest;
+import com.jasm.javaapispringbootmaven.model.dto.request.UserUpdateRequest;
 import com.jasm.javaapispringbootmaven.model.dto.response.UserResponse;
 import com.jasm.javaapispringbootmaven.repository.UserRepository;
 import com.jasm.javaapispringbootmaven.service.UserService;
@@ -36,12 +37,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse create(UserRequest user) {
-        return null;
+    public UserResponse create(UserCreateRequest user) {
+        var userDB = UserMapper.MAPPER.toEntity(user);
+        userRepository.save(userDB);
+        return UserMapper.MAPPER.toResponse(userDB);
     }
 
     @Override
-    public UserResponse update(UserRequest user, String id) {
+    public UserResponse update(UserUpdateRequest user, UUID id) {
+        var userDB = userRepository.findById(id).orElseThrow(() -> {
+            log.info("User {} not found", id);
+            return new ResourceNotFoundException("User " + id + " not found");
+        });
+
         return null;
     }
 
