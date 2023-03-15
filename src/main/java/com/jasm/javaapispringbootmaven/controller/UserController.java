@@ -1,6 +1,7 @@
 package com.jasm.javaapispringbootmaven.controller;
 
-import com.jasm.javaapispringbootmaven.model.dto.request.UserRequest;
+import com.jasm.javaapispringbootmaven.model.dto.request.UserCreateRequest;
+import com.jasm.javaapispringbootmaven.model.dto.request.UserUpdateRequest;
 import com.jasm.javaapispringbootmaven.model.dto.response.UserResponse;
 import com.jasm.javaapispringbootmaven.service.UserService;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,12 +29,12 @@ public class UserController {
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest user) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest user) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(user));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UserRequest user, @PathVariable String id) {
+    public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UserUpdateRequest user, @PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.update(user, id));
     }
 
